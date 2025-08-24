@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pekora Status</title>
+<style>
+:root {
+    --bg: #f4f4f4;
+    --text: #333;
+    --card-bg: #fff;
+    --border: #ddd;
+    --shadow: rgba(0,0,0,0.1);
+}
+body.dark {
+    --bg: #1c1c1c;
+    --text: #eee;
+    --card-bg: #2a2a2a;
+    --border: #444;
+    --shadow: rgba(0,0,0,0.5);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s, color 0.3s;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+    background: url('header-bg.png') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    overflow: hidden;
+    height: 500px; /* bigger initial height */
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+}
+
+.header-logo {
+    width: 400px; /* bigger logo */
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 80px auto 15px auto; /* move logo lower */
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease-out;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    z-index: 1;
+}
+body.dark .theme-toggle {
+    background: rgba(255,255,255,0.2);
+    color: #eee;
+}
+
+.status-banner {
+    background: #ff9900;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.section {
+    margin: 30px auto;
+    max-width: 900px;
+    padding: 0 20px;
+}
+.section h2 {
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.status-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    margin: 8px 0;
+    padding: 12px 15px;
+    border-left: 10px solid;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px var(--shadow);
+    font-weight: 500;
+}
+.online { border-color: #28a745; }
+.maintenance { border-color: #ffc107; }
+.offline { border-color: #dc3545; }
+
+.incidents {
+    background: var(--card-bg);
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 3px solid var(--border);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+.incident {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-left: 6px solid #ffc107;
+    background: #fdf7e3;
+}
+body.dark .incident { background: #3a3220; }
+.incident.resolved {
+    border-color: #28a745;
+    background: #e9f9ee;
+}
+body.dark .incident.resolved { background: #213b29; }
+.incident.critical {
+    border-color: #dc3545;
+    background: #fceaea;
+}
+body.dark .incident.critical { background: #3b1f1f; }
+</style>
+</head>
+<body>
+
+<div class="header" id="header">
+    <img src="logo.png" alt="Pekora Logo" class="header-logo" id="header-logo">
+    <h2 id="header-text">Status Page</h2>
+    <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">Toggle Theme</button>
+</div>
+
+<div class="status-banner">
+    Site is down bro, go check discord.
+</div>
+
+<div class="section">
+    <h2>Game Servers</h2>
+    <!-- Change status here -->
+    <div class="status-line online"><span>Main Game Servers</span><span>Operational</span></div>
+    <div class="status-line offline"><span>RCC Service</span><span>Offline</span></div>
+</div>
+
+<div class="section">
+    <h2>Website</h2>
+    <div class="status-line online"><span>Homepage</span><span>Operational</span></div>
+    <div class="status-line maintenance"><span>Account Management</span><span>Maintenance</span></div>
+</div>
+
+<div class="section">
+    <h2>API & Tools</h2>
+    <div class="status-line online"><span>Asset Delivery</span><span>Operational</span></div>
+    <div class="status-line maintenance"><span>Catalog</span><span>Maintenance</span></div>
+</div>
+
+<div class="incidents">
+    <h2>Recent Incidents</h2>
+    <!-- Change incidents here -->
+    <div class="incident">
+        <strong>[Ongoing]</strong> Account Moderation is undergoing scheduled maintenance.<br>
+        Updated: 20 minutes ago
+    </div>
+    <div class="incident resolved">
+        <strong>[Resolved]</strong> Game Servers being slow like if it was running on a raspberry pi.<br>
+        Resolved: 2 hours ago
+    </div>
+    <div class="incident critical">
+        <strong>[Critical Incident]</strong> Database compromised.<br>
+        Started: 10 minutes ago
+    </div>
+</div>
+
+<script>
+const header = document.getElementById('header');
+const logo = document.getElementById('header-logo');
+const headerText = document.getElementById('header-text');
+const initialHeight = 500; // bigger initial height
+const minHeight = 150;
+const minLogoScale = 0.5;
+const minTextScale = 0.8;
+let latestScroll = 0;
+let ticking = false;
+
+function updateHeader() {
+    const scrollY = Math.min(latestScroll, initialHeight - minHeight);
+    const scale = Math.max(minLogoScale, 1 - scrollY / (initialHeight * 1.2));
+    const textScale = Math.max(minTextScale, 1 - scrollY / (initialHeight * 2));
+    header.style.height = (initialHeight - scrollY) + 'px';
+    logo.style.transform = `scale(${scale})`;
+    headerText.style.transform = `scale(${textScale})`;
+    headerText.style.opacity = textScale;
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    latestScroll = window.scrollY;
+    if (!ticking) {
+        window.requestAnimationFrame(updateHeader);
+        ticking = true;
+    }
+});
+</script>
+
+</body>
+</html>
